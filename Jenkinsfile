@@ -9,19 +9,23 @@ def GIT_REPO = 'https://github.com/stormmore/jenkins-pipeline.git'
 def GIT_DEV_BRANCH = 'master'
 
 // Maven repository
-def MAVEN_URL = 'https://nexus.mobileservices.razerzone.com/repository/'
-def MAVEN_CREDENTIALSID = 'nexus-maven'
-def MAVEN_RELEASES = 'maven-releases'
-def MAVEN_SNAPSHOTS = 'maven-snapshots'
 
 pipeline {
   agent none
+
+  environment {
+    MAVEN_URL = 'https://nexus.mobileservices.razerzone.com/repository/'
+    MAVEN_CREDSID = 'nexus-maven'
+    MAVEN_RELEASES = 'maven-releases'
+    MAVEN_SNAPSHOTS = 'maven-snapshots'
+  }
+
   stages {
     stage('build') {
       agent any
       steps {
         script {
-          def server = Artifactory.newServer(url: 'https://nexus.mobileservices.razerzone.com/repository/', credentialsId: "nexus-maven")
+          def server = Artifactory.newServer url: NEXUS_URL, credentialsId: MAVEN_CREDSID
         }
       }
     }
