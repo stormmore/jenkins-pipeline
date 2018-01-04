@@ -4,16 +4,16 @@ TO-DO:
     previous builds without rebuilding
 */
 
-// Source repository
-def GIT_REPO = 'https://github.com/stormmore/jenkins-pipeline.git'
-def GIT_DEV_BRANCH = 'master'
-
-// Maven repository
 
 pipeline {
   agent none
 
   environment {
+    // Source repository
+    GIT_REPO = 'https://github.com/stormmore/jenkins-pipeline.git'
+    GIT_DEV_BRANCH = 'master'
+
+    // Maven repository
     MAVEN_URL = 'https://nexus.mobileservices.razerzone.com/repository/'
     MAVEN_CREDSID = 'nexus-maven'
     MAVEN_RELEASES = 'maven-releases'
@@ -26,6 +26,7 @@ pipeline {
       steps {
         script {
           def server = Artifactory.newServer url: MAVEN_URL, credentialsId: MAVEN_CREDSID
+          def rtMaven = Artifactory.newMavenBuild()
         }
       }
     }
