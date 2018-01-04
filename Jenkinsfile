@@ -24,6 +24,7 @@ pipeline {
     stage('build') {
       agent any
       steps {
+        echo PATH
         script {
           def server = Artifactory.newServer url: MAVEN_URL, credentialsId: MAVEN_CREDSID
           def rtMaven = Artifactory.newMavenBuild()
