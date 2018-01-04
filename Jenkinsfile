@@ -21,10 +21,10 @@ pipeline {
   }
 
   stages {
-    when {
-      branch 'master'
-    }
     stage('build') {
+      when {
+        branch 'master'
+      }
       agent any
       steps {
         echo PATH
