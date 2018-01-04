@@ -15,10 +15,10 @@ pipeline {
     stage('build') {
       agent any
       steps {
-        echo 'checkout repo'
-        echo 'maven test'
-        echo 'maven package'
-        echo 'maven verify'
+        sh "echo 'checkout repo'"
+        sh "echo 'maven test'"
+        sh "echo 'maven package'"
+        sh "echo 'maven verify'"
       }
     }
   }
