@@ -15,8 +15,8 @@ pipeline {
       steps {
         echo 'testing nexus_server'
         script {
-          def nexus_server = Artifactory.newArtifactoryServer url: nexus_url,
-                              credentialsId: nexus_credentialsId
+          def nexus_server = Artifactory.newServer url: nexus_url,
+                                                   credentialsId: nexus_credentialsId
           def rtMaven = nexus_server.newMavenBuild()
         }
       }
