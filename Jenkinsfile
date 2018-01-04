@@ -14,19 +14,10 @@ pipeline {
   stages {
     stage('build') {
       agent any
-      stage('checkout') {
+      steps {
         echo 'checkout repo'
-      }
-
-      stage('test') {
         echo 'maven test'
-      }
-
-      stage('package') {
         echo 'maven package'
-      }
-
-      stage('verify') {
         echo 'maven verify'
       }
     }
