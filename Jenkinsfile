@@ -7,10 +7,6 @@ def git_repo = 'https://github.com/stormmore/jenkins-pipeline.git'
 def nexus_url = 'https://nexus.mobileservices.razerzone.com/repository/'
 def nexus_credentialsId = 'nexus-maven'
 
-def nexus_server
-def rtMaven
-def buildInfo
-
 pipeline {
   agent none
   stages {
@@ -19,9 +15,9 @@ pipeline {
       steps {
         echo 'testing nexus_server'
         script {
-          nexus_server = Artifactory.newArtifactoryServer url: nexus_url,
+          def nexus_server = Artifactory.newArtifactoryServer url: nexus_url,
                               credentialsId: nexus_credentialsId
-          rtMaven = nexus_server.newMavenBuild()
+          def rtMaven = nexus_server.newMavenBuild()
         }
       }
     }
