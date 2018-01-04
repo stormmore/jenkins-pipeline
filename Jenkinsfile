@@ -11,6 +11,8 @@ def GIT_DEV_BRANCH = 'master'
 // Maven repository
 def MAVEN_URL = 'https://nexus.mobileservices.razerzone.com/repository/'
 def MAVEN_CREDENTIALSID = 'nexus-maven'
+def MAVEN_RELEASES = 'maven-releases'
+def MAVEN_SNAPSHOTS = 'maven-snapshots'
 
 pipeline {
   agent none
@@ -20,7 +22,7 @@ pipeline {
       steps {
         echo 'testing nexus_server'
         script {
-          def nexus_server = Artifactory.newServer url: MAVEN_URL, credentialsId: MAVEN_CREDENTIALSID
+          def server = Artifactory.newServer url: "${MAVEN_URL}", credentialsId: "${MAVEN_CREDENTIALSID}"
           def rtMaven = Artifactory.newMavenBuild()
 
           echo MAVEN_URL,  MAVEN_CREDENTIALSID
