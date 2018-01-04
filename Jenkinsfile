@@ -25,7 +25,7 @@ pipeline {
       agent any
       steps {
         script {
-          def server = Artifactory.newServer url: NEXUS_URL, credentialsId: MAVEN_CREDSID
+          def server = Artifactory.newServer url: MAVEN_URL, credentialsId: MAVEN_CREDSID
         }
       }
     }
