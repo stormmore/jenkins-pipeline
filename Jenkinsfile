@@ -29,10 +29,8 @@ pipeline {
       steps {
         parallel(
             'checkout': {
-              stage('checkout') {
-                checkout scm
-                stash
-              }
+              checkout scm
+              stash
             }
           )
       }
