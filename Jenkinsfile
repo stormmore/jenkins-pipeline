@@ -27,7 +27,7 @@ pipeline {
       }
       agent any
       steps {
-        stash
+        stash 'source'
       }
     }
   }
