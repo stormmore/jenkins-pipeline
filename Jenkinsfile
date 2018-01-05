@@ -22,7 +22,9 @@ pipeline {
     // Slack
     SLACK_TEAM = 'razersf'
     SLACK_BUILD_TOKEN = 'eKXxnFcBwFsYryVOpjylNorV'
+    SLACK_BUILD_CHANNEL = '@graham.burgess'
     SLACK_DEPLOY_TOKEN = 'eKXxnFcBwFsYryVOpjylNorV'
+    SLACK_DEPLOY_CHANNEL = '@graham.burgess'
   }
 
   stages {
@@ -53,6 +55,7 @@ pipeline {
       when {
         branch 'master'
       }
+      agent any
       steps {
         sh 'mvn test'
       }
