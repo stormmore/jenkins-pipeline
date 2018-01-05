@@ -27,12 +27,7 @@ pipeline {
       }
       agent any
       steps {
-        parallel(
-            'checkout': {
-              checkout scm
-              stash
-            }
-          )
+        stash
       }
     }
   }
