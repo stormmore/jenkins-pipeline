@@ -36,6 +36,7 @@ pipeline {
           'notify': {
             slackSend teamDomain: SLACK_TEAM, token: SLACK_BUILD_TOKEN,
                       message:  "BUILD STARTED: Job '${env.JOB_NAME}  [${env.BUILD_NUMBER}]' (<${env.RUN_DISPLAY_URL}|Open>)",
+                      channel: '@graham.burgess'
 
           },
           'stash': {
