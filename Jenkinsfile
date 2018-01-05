@@ -109,11 +109,11 @@ pipeline {
                     message:  "BUILD VERIFY FAILED: Job '${env.JOB_NAME}  [${env.BUILD_NUMBER}]' (<${env.RUN_DISPLAY_URL}|Open>)"
         }
       }
+    }
 
-      stage('Deploy Approval') {
-        steps {
-          input message: 'Ready to deploy?', submitter: DEPLOY_APPROVE
-        }
+    stage('Deploy Approval') {
+      steps {
+        input message: 'Ready to deploy?', submitter: DEPLOY_APPROVE
       }
     }
   }
