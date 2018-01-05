@@ -18,16 +18,26 @@ pipeline {
     MAVEN_CREDSID = 'nexus-maven'
     MAVEN_RELEASES = 'maven-releases'
     MAVEN_SNAPSHOTS = 'maven-snapshots'
+
+    // Slack
+    SLACK_TEAM = 'razersf'
+    SLACK_BUILD_TOKEN = 'eKXxnFcBwFsYryVOpjylNorV'
+    SLACK_DEPLOY_TOKEN = 'eKXxnFcBwFsYryVOpjylNorV'
   }
 
   stages {
-    stage('build') {
+    stage('Build Preparation') {
       when {
         branch 'master'
       }
       agent any
       steps {
         parallel(
+          'notify': {
+            slackSend teamDomain: SLACK_TEAM, token: SLACK_BUILD_TOKEN,
+                      message:  "BUILD STARTED: Job '${env.JOB_NAME}  [${env.BUILD_NUMBER}]' (<${env.RUN_DISPLAY_URL}|Open>)",
+
+          },
           'stash': {
             stash 'source'
           },
