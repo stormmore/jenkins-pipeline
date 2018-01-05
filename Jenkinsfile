@@ -27,7 +27,7 @@ pipeline {
       }
       agent any
       steps {
-        parrallel(
+        parallel(
             'checkout': {
               stage('checkout') {
                 checkout scm
