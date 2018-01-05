@@ -37,8 +37,8 @@ pipeline {
         parallel(
           'notify': {
             slackSend teamDomain: SLACK_TEAM, token: SLACK_BUILD_TOKEN,
-                      message:  "BUILD STARTED: Job '${env.JOB_NAME}  [${env.BUILD_NUMBER}]' (<${env.RUN_DISPLAY_URL}|Open>)",
-                      channel: SLACK_BUILD_CHANNEL, color: '#0000FF'
+                      channel: SLACK_BUILD_CHANNEL, color: '#0000FF',
+                      message:  "BUILD STARTED: Job '${env.JOB_NAME}  [${env.BUILD_NUMBER}]' (<${env.RUN_DISPLAY_URL}|Open>)"
 
           },
           'stash': {
@@ -66,8 +66,8 @@ pipeline {
         }
         failure {
           slackSend teamDomain: SLACK_TEAM, token: SLACK_BUILD_TOKEN,
-                    message:  "BUILD PRETEST FAILED: Job '${env.JOB_NAME}  [${env.BUILD_NUMBER}]' (<${env.RUN_DISPLAY_URL}|Open>)",
-                    channel: SLACK_BUILD_CHANNEL, color: '#FF0000'
+                    channel: SLACK_BUILD_CHANNEL, color: '#FF0000',
+                    message:  "BUILD PRETEST FAILED: Job '${env.JOB_NAME}  [${env.BUILD_NUMBER}]' (<${env.RUN_DISPLAY_URL}|Open>)"
         }
       }
     }
@@ -84,8 +84,8 @@ pipeline {
       post {
         failure {
           slackSend teamDomain: SLACK_TEAM, token: SLACK_BUILD_TOKEN,
-                    message:  "BUILD FAILED: Job '${env.JOB_NAME}  [${env.BUILD_NUMBER}]' (<${env.RUN_DISPLAY_URL}|Open>)",
-                    channel: SLACK_BUILD_CHANNEL, color: '#FF0000'
+                    channel: SLACK_BUILD_CHANNEL, color: '#FF0000',
+                    message:  "BUILD FAILED: Job '${env.JOB_NAME}  [${env.BUILD_NUMBER}]' (<${env.RUN_DISPLAY_URL}|Open>)"
         }
       }
     }
