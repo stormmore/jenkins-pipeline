@@ -18,6 +18,8 @@ pipeline {
     MAVEN_CREDSID = 'nexus-maven'
     MAVEN_RELEASES = 'maven-releases'
     MAVEN_SNAPSHOTS = 'maven-snapshots'
+
+    BUILD_VERSION = readMavenPom().getVersion()
   }
 
   stages {
@@ -27,15 +29,14 @@ pipeline {
       }
       agent any
       steps {
-        sh '''
-          env
-          echo ${M2_HOME}
-        '''
-
-        script {
-          def server = Artifactory.newServer url: MAVEN_URL, credentialsId: MAVEN_CREDSID
-          def rtMaven = Artifactory.newMavenBuild()
-        }
+        parrallel(
+            'checkout': {
+              stage('checkout') {
+                checkout scm
+                stash
+              }
+            }
+          )
       }
     }
   }
