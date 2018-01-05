@@ -32,20 +32,20 @@ pipeline {
       }
       agent any
       steps {
-        // parallel(
-        //   'notify': {
+        parallel(
+          'notify': {
             slackSend teamDomain: SLACK_TEAM, token: SLACK_BUILD_TOKEN,
                       message:  "BUILD STARTED: Job '${env.JOB_NAME}  [${env.BUILD_NUMBER}]' (<${env.RUN_DISPLAY_URL}|Open>)",
                       channel: '@graham.burgess', color: '#0000FF'
-          //
-          // },
-          // 'stash': {
-          //   stash 'source'
-          // },
-          // 'jave_version': {
-          //   sh 'java -version'
-          // }
-          // )
+
+          },
+          'stash': {
+            stash 'source'
+          },
+          'jave_version': {
+            sh 'java -version'
+          }
+          )
       }
     }
   }
