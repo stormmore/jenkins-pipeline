@@ -18,8 +18,6 @@ pipeline {
     MAVEN_CREDSID = 'nexus-maven'
     MAVEN_RELEASES = 'maven-releases'
     MAVEN_SNAPSHOTS = 'maven-snapshots'
-
-    BUILD_VERSION = readMavenPom().getVersion()
   }
 
   stages {
