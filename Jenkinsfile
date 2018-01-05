@@ -79,7 +79,7 @@ pipeline {
       agent any
       steps {
         unstash 'source'
-        sh 'mvn clean install -Dmaven.test.skip=true'
+        sh 'mvn clean package -Dmaven.test.skip=true'
       }
       post {
         failure {
