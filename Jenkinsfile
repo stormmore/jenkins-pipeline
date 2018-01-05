@@ -25,7 +25,6 @@ pipeline {
       when {
         branch 'master'
       }
-      agent any
       steps {
         stash 'source'
       }
