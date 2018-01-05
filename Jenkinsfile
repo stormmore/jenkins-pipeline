@@ -57,13 +57,30 @@ pipeline {
       }
       agent any
       steps {
-        sh 'mvn test'
+        sh 'mvn clean test'
       }
       post {
         failure {
           slackSend teamDomain: SLACK_TEAM, token: SLACK_BUILD_TOKEN,
                     message:  "BUILD PRETEST FAILED: Job '${env.JOB_NAME}  [${env.BUILD_NUMBER}]' (<${env.RUN_DISPLAY_URL}|Open>)",
-                    channel: SLACK_BUILD_CHANNEL, color: '#FF0000'          
+                    channel: SLACK_BUILD_CHANNEL, color: '#FF0000'
+        }
+      }
+    }
+
+    stage('Build Packaging') {
+      when {
+        branch 'master'
+      }
+      agent any
+      steps {
+        sh 'mvn clean install -Dmaven.test.skip=true'
+      }
+      post {
+        failure {
+          slackSend teamDomain: SLACK_TEAM, token: SLACK_BUILD_TOKEN,
+                    message:  "BUILD PRETEST FAILED: Job '${env.JOB_NAME}  [${env.BUILD_NUMBER}]' (<${env.RUN_DISPLAY_URL}|Open>)",
+                    channel: SLACK_BUILD_CHANNEL, color: '#FF0000'
         }
       }
     }
