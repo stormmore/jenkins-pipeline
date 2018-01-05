@@ -38,7 +38,7 @@ pipeline {
           'notify': {
             slackSend teamDomain: SLACK_TEAM, token: SLACK_BUILD_TOKEN,
                       message:  "BUILD STARTED: Job '${env.JOB_NAME}  [${env.BUILD_NUMBER}]' (<${env.RUN_DISPLAY_URL}|Open>)",
-                      channel: '@graham.burgess', color: '#0000FF'
+                      channel: SLACK_BUILD_CHANNEL, color: '#0000FF'
 
           },
           'stash': {
@@ -58,6 +58,13 @@ pipeline {
       agent any
       steps {
         sh 'mvn test'
+      }
+      post {
+        failure {
+          slackSend teamDomain: SLACK_TEAM, token: SLACK_BUILD_TOKEN,
+                    message:  "BUILD STARTED: Job '${env.JOB_NAME}  [${env.BUILD_NUMBER}]' (<${env.RUN_DISPLAY_URL}|Open>)",
+                    channel: SLACK_BUILD_CHANNEL, color: '#0000FF'          
+        }
       }
     }
   }
