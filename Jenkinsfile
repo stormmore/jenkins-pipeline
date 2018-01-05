@@ -57,9 +57,13 @@ pipeline {
       }
       agent any
       steps {
+        unstash 'source'
         sh 'mvn clean test'
       }
       post {
+        always {
+          junit 'build/reports/**/*.xml'
+        }
         failure {
           slackSend teamDomain: SLACK_TEAM, token: SLACK_BUILD_TOKEN,
                     message:  "BUILD PRETEST FAILED: Job '${env.JOB_NAME}  [${env.BUILD_NUMBER}]' (<${env.RUN_DISPLAY_URL}|Open>)",
@@ -74,12 +78,13 @@ pipeline {
       }
       agent any
       steps {
+        unstash 'source'
         sh 'mvn clean install -Dmaven.test.skip=true'
       }
       post {
         failure {
           slackSend teamDomain: SLACK_TEAM, token: SLACK_BUILD_TOKEN,
-                    message:  "BUILD PRETEST FAILED: Job '${env.JOB_NAME}  [${env.BUILD_NUMBER}]' (<${env.RUN_DISPLAY_URL}|Open>)",
+                    message:  "BUILD FAILED: Job '${env.JOB_NAME}  [${env.BUILD_NUMBER}]' (<${env.RUN_DISPLAY_URL}|Open>)",
                     channel: SLACK_BUILD_CHANNEL, color: '#FF0000'
         }
       }
