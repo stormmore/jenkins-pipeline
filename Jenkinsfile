@@ -48,5 +48,9 @@ pipeline {
           )
       }
     }
+
+    stage('Build Pretesting') {
+      sh 'mvn test'
+    }
   }
 }
