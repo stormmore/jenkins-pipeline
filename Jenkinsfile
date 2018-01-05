@@ -25,8 +25,16 @@ pipeline {
       when {
         branch 'master'
       }
-      steps {
-        stash 'source'
+      agent any
+      steps
+        parallel(
+          'stash': {
+            stash 'source'
+          },
+          'jave_version': {
+            sh 'java -version'
+          }
+          )
       }
     }
   }
