@@ -27,7 +27,11 @@ pipeline {
       }
       agent any
       steps {
-        sh 'echo $M2_HOME'
+        sh '''
+          env
+          echo ${M2_HOME}
+        '''
+
         script {
           def server = Artifactory.newServer url: MAVEN_URL, credentialsId: MAVEN_CREDSID
           def rtMaven = Artifactory.newMavenBuild()
