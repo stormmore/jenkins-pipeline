@@ -62,7 +62,7 @@ pipeline {
       }
       post {
         always {
-          junit 'build/reports/**/*.xml'
+          junit '**/target/surefire-reports/TEST-*.xml'
         }
         failure {
           slackSend teamDomain: SLACK_TEAM, token: SLACK_BUILD_TOKEN,
