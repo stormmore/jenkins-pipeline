@@ -26,7 +26,7 @@ pipeline {
         branch 'master'
       }
       agent any
-      steps
+      steps {
         parallel(
           'stash': {
             stash 'source'
